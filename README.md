@@ -35,6 +35,13 @@ But it is a little complicated, the followings might be helpful for you.
 # 1. Install Ubuntu 
 ```
    Install Ubuntu 20.04 as "Minimal Install" and don't select "install third-party software for graphics and Wi-Fi hardware and additional media formats".
+   Followings are optional, but it is very convenient.
+   $ sudo vi /etc/apt/apt.conf.d/20auto-upgrades
+     APT::Periodic::Update-Package-Lists "0";
+     APT::Periodic::Unattended-Upgrade "0";
+   $ sudo visudo
+     username ALL=NOPASSWD: ALL
+
    See also followings:
    https://qiita.com/RyodoTanaka/items/e9b15d579d17651650b7
    https://thr3a.hatenablog.com/entry/20170805/1501943406
