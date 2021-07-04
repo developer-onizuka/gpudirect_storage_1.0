@@ -165,25 +165,8 @@ But it is a little complicated, the followings might be helpful for you.
     Platform verification succeeded
 
 ```
-# 9. Build and Run
-```
-   $ nvcc -I /usr/local/cuda/include/  -I /usr/local/cuda/targets/x86_64-linux/lib/ strrev_gds.cu -o strrev_gds.co -L /usr/local/cuda/targets/x86_64-linux/lib/ -lcufile -L /usr/local/cuda/lib64/ -lcuda -L   -Bstatic -L /usr/local/cuda/lib64/ -lcudart_static -lrt -lpthread -ldl -lcrypto -lssl
-   $ echo -n "Hello, GDS World!" > test.txt
-   $ ./strrev_gds.co test.txt 
-   sys_len : 17
-   !dlroW SDG ,olleH
-   See also test.txt
-   $ cat test.txt 
-   !dlroW SDG ,olleH
-   $ ./strrev_gds.co test.txt 
-   sys_len : 17
-   Hello, GDS World!
-   See also test.txt
-   $ cat test.txt 
-   Hello, GDS World!
-```   
 
-# 10. Througput test
+# 9. Througput test
 ```
 1. C-state Disable
    $ grep cstate /etc/default/grub
@@ -248,3 +231,23 @@ IoType: RANDREAD XferType: CPU_GPU Threads: 1 DataSetSize: 18677760/10485760(KiB
 (3) Storage -> GPU (GDS)
 $ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 2 -T 10 -i 8192K
 IoType: RANDREAD XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.463563 GiB/sec, Avg_Latency: 5335.688158 usecs ops: 2280 total_time 12.170641 secs
+```
+# 10. Build and Run
+```
+   $ sudo apt install nvidia-cuda-toolkit
+   $ sudo apt install libssl-dev
+   $ nvcc -I /usr/local/cuda/include/  -I /usr/local/cuda/targets/x86_64-linux/lib/ strrev_gds.cu -o strrev_gds.co -L /usr/local/cuda/targets/x86_64-linux/lib/ -lcufile -L /usr/local/cuda/lib64/ -lcuda -L   -Bstatic -L /usr/local/cuda/lib64/ -lcudart_static -lrt -lpthread -ldl -lcrypto -lssl
+   $ echo -n "Hello, GDS World!" > test.txt
+   $ ./strrev_gds.co test.txt 
+   sys_len : 17
+   !dlroW SDG ,olleH
+   See also test.txt
+   $ cat test.txt 
+   !dlroW SDG ,olleH
+   $ ./strrev_gds.co test.txt 
+   sys_len : 17
+   Hello, GDS World!
+   See also test.txt
+   $ cat test.txt 
+   Hello, GDS World!
+```  
