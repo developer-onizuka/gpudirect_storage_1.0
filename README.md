@@ -84,7 +84,7 @@ But it is a little complicated, the followings might be helpful for you.
      driver   : nvidia-driver-450 - distro non-free
      driver   : nvidia-driver-390 - distro non-free
      driver   : xserver-xorg-video-nouveau - distro free builtin
-   $ sudo apt install nvidia-cuda-toolkit nvidia-driver-460
+   $ sudo apt install nvidia-driver-460
    $ shutdown -r now
 ```
 # 6. Check nvidia-smi
