@@ -165,20 +165,23 @@ But it is a little complicated, the followings might be helpful for you.
     Platform verification succeeded
 
 ```
-# 9. Additional software
+# 9. Build and Run
 ```
-   $ sudo apt install libssl-dev
-   $ sudo apt install net-tools 
-   $ sudo apt install openssh-server
-   $ sudo update-alternatives --config java
-   There are 2 choices for the alternative java (providing /usr/bin/java).
-
-     Selection    Path                                            Priority   Status
-   ------------------------------------------------------------
-     0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
-     1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
-   * 2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
-```
+   $ nvcc -I /usr/local/cuda/include/  -I /usr/local/cuda/targets/x86_64-linux/lib/ strrev_gds.cu -o strrev_gds.co -L /usr/local/cuda/targets/x86_64-linux/lib/ -lcufile -L /usr/local/cuda/lib64/ -lcuda -L   -Bstatic -L /usr/local/cuda/lib64/ -lcudart_static -lrt -lpthread -ldl -lcrypto -lssl
+   $ echo -n "Hello, GDS World!" > test.txt
+   $ ./strrev_gds.co test.txt 
+   sys_len : 17
+   !dlroW SDG ,olleH
+   See also test.txt
+   $ cat test.txt 
+   !dlroW SDG ,olleH
+   $ ./strrev_gds.co test.txt 
+   sys_len : 17
+   Hello, GDS World!
+   See also test.txt
+   $ cat test.txt 
+   Hello, GDS World!
+```   
 
 # 10. Througput test
 ```
@@ -196,64 +199,52 @@ But it is a little complicated, the followings might be helpful for you.
 
 3. Seq Write Throughput
 (1) Storage->CPU
-    1.03GB/s from NVMe to system memory.
-
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 1 -I 1 -T 10
-    IoType: WRITE XferType: CPUONLY Threads: 1 DataSetSize: 10461184/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.039233 GiB/sec, Avg_Latency: 939.634103 usecs ops: 10216 total_time 9.599926 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: CPUONLY Threads: 1 DataSetSize: 10485760/10485760(KiB) IOSize: 4096(KiB) Throughput: 0.940200 GiB/sec, Avg_Latency: 4153.464453 usecs ops: 2560 total_time 10.636039 secs
     
 (2) Storage->CPU->GPU
-    Bounce buffer occuring from GPU memory to NVMe and it was 1.03GB/s as you can see below:
-    
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 2 -I 1 -T 10
-    IoType: WRITE XferType: CPU_GPU Threads: 1 DataSetSize: 11509760/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.038694 GiB/sec, Avg_Latency: 940.127580 usecs ops: 11240 total_time 10.567659 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: CPU_GPU Threads: 1 DataSetSize: 10485760/10485760(KiB) IOSize: 4096(KiB) Throughput: 0.947653 GiB/sec, Avg_Latency: 4120.292188 usecs ops: 2560 total_time 10.552385 secs
     
 (3) Storage -> GPU (GDS)
-    GDS eliminates bounce buffer so that it can write at 1.04GB/s.
-
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 0 -I 1 -T 10
-    IoType: WRITE XferType: GPUD Threads: 1 DataSetSize: 10461184/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.040754 GiB/sec, Avg_Latency: 938.261355 usecs ops: 10216 total_time 9.585902 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: GPUD Threads: 1 DataSetSize: 10485760/10485760(KiB) IOSize: 4096(KiB) Throughput: 0.976612 GiB/sec, Avg_Latency: 3998.571094 usecs ops: 2560 total_time 10.239486 secs
 
 4. Seq Read Throughput
 (1) Storage->CPU
-    This value means that NVMe's seq-read throughput from NVMe to system memory is 1.66GB/s.
-
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 1 -I 0 -T 10
-    IoType: READ XferType: CPUONLY Threads: 1 DataSetSize: 17801216/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.660507 GiB/sec, Avg_Latency: 588.060458 usecs ops: 17384 total_time 10.223722 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 0 -T 10 -i 8192K
+IoType: READ XferType: CPUONLY Threads: 1 DataSetSize: 20971520/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.849013 GiB/sec, Avg_Latency: 4223.095312 usecs ops: 2560 total_time 10.816580 secs
 
 (2) Storage->CPU->GPU
-    Bounce buffer occuring from NVMe to GPU memory and it was 1.49GB/s as you can see below:
-
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 2 -I 0 -T 10
-    IoType: READ XferType: CPU_GPU Threads: 1 DataSetSize: 15704064/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.490721 GiB/sec, Avg_Latency: 655.031364 usecs ops: 15336 total_time 10.046521 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 0 -T 10 -i 8192K
+IoType: READ XferType: CPU_GPU Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.498969 GiB/sec, Avg_Latency: 5209.203509 usecs ops: 2280 total_time 11.883168 secs
 
 (3) Storage -> GPU (GDS)
-    GDS eliminates bounce buffer so that it can read at 1.67GB/s.
-
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 0 -I 0 -T 10
-    IoType: READ XferType: GPUD Threads: 1 DataSetSize: 17801216/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.678453 GiB/sec, Avg_Latency: 581.768983 usecs ops: 17384 total_time 10.114409 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 0 -T 10 -i 8192K
+IoType: READ XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.761112 GiB/sec, Avg_Latency: 4433.709649 usecs ops: 2280 total_time 10.114349 secs
 
 5. Rand Write Throughput
 (1) Storage->CPU
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 1 -I 3 -T 10
-    IoType: RANDWRITE XferType: CPUONLY Threads: 1 DataSetSize: 10461184/1048576(KiB) IOSize: 1024(KiB) Throughput: 0.940263 GiB/sec, Avg_Latency: 1038.538175 usecs ops: 10216 total_time 10.610397 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 3 -T 10 -i 4096K
+IoType: RANDWRITE XferType: CPUONLY Threads: 1 DataSetSize: 10485760/10485760(KiB) IOSize: 4096(KiB) Throughput: 0.938541 GiB/sec, Avg_Latency: 4160.809375 usecs ops: 2560 total_time 10.654841 secs
 
 (2) Storage->CPU->GPU
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 2 -I 3 -T 10
-    IoType: RANDWRITE XferType: CPU_GPU Threads: 1 DataSetSize: 9412608/1048576(KiB) IOSize: 1024(KiB) Throughput: 0.924835 GiB/sec, Avg_Latency: 1055.857920 usecs ops: 9192 total_time 9.706119 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 3 -T 10 -i 4096K
+IoType: RANDWRITE XferType: CPU_GPU Threads: 1 DataSetSize: 8192000/10485760(KiB) IOSize: 4096(KiB) Throughput: 0.851809 GiB/sec, Avg_Latency: 4583.641500 usecs ops: 2000 total_time 9.171656 secs
 
 (3) Storage -> GPU (GDS)
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 0 -I 3 -T 10
-    IoType: RANDWRITE XferType: GPUD Threads: 1 DataSetSize: 9412608/1048576(KiB) IOSize: 1024(KiB) Throughput: 0.931682 GiB/sec, Avg_Latency: 1048.084639 usecs ops: 9192 total_time 9.634797 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 3 -T 10 -i 4096K
+IoType: RANDWRITE XferType: GPUD Threads: 1 DataSetSize: 10485760/10485760(KiB) IOSize: 4096(KiB) Throughput: 0.922404 GiB/sec, Avg_Latency: 4233.433984 usecs ops: 2560 total_time 10.841231 secs
 
 6. Rand Read Throughput
 (1) Storage->CPU
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 1 -I 2 -T 10
-    IoType: RANDREAD XferType: CPUONLY Threads: 1 DataSetSize: 12558336/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.132377 GiB/sec, Avg_Latency: 862.325750 usecs ops: 12264 total_time 10.576477 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 2 -T 10 -i 8192K
+IoType: RANDREAD XferType: CPUONLY Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.510579 GiB/sec, Avg_Latency: 5169.552632 usecs ops: 2280 total_time 11.791838 secs
         
 (2) Storage->CPU->GPU
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 2 -I 2 -T 10
-    IoType: RANDREAD XferType: CPU_GPU Threads: 1 DataSetSize: 10461184/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.022459 GiB/sec, Avg_Latency: 955.010278 usecs ops: 10216 total_time 9.757416 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 2 -T 10 -i 8192K
+IoType: RANDREAD XferType: CPUONLY Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.510579 GiB/sec, Avg_Latency: 5169.552632 usecs ops: 2280 total_time 11.791838 secs
     
 (3) Storage -> GPU (GDS)
-    $ gdsio -f /mnt/test1G -d 0 -n 0 -w 1 -s 1G -x 0 -I 2 -T 10
-    IoType: RANDREAD XferType: GPUD Threads: 1 DataSetSize: 12558336/1048576(KiB) IOSize: 1024(KiB) Throughput: 1.146988 GiB/sec, Avg_Latency: 851.332436 usecs ops: 12264 total_time 10.441746 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 2 -T 10 -i 8192K
+IoType: RANDREAD XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.463563 GiB/sec, Avg_Latency: 5335.688158 usecs ops: 2280 total_time 12.170641 secs
