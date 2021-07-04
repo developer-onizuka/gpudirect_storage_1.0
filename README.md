@@ -242,8 +242,8 @@ $ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 2 -T 10 -i 8192K
 IoType: RANDREAD XferType: CPUONLY Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.510579 GiB/sec, Avg_Latency: 5169.552632 usecs ops: 2280 total_time 11.791838 secs
         
 (2) Storage->CPU->GPU
-$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 2 -T 10 -i 8192K
-IoType: RANDREAD XferType: CPUONLY Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.510579 GiB/sec, Avg_Latency: 5169.552632 usecs ops: 2280 total_time 11.791838 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 2 -T 10 -i 8192K
+IoType: RANDREAD XferType: CPU_GPU Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.260354 GiB/sec, Avg_Latency: 6196.049123 usecs ops: 2280 total_time 14.132937 secs
     
 (3) Storage -> GPU (GDS)
 $ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 2 -T 10 -i 8192K
