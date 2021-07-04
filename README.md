@@ -74,16 +74,19 @@ But it is a little complicated, the followings might be helpful for you.
    $ sudo apt update
    $ sudo apt upgrade
    $ ubuntu-drivers devices
-     == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
-     modalias : pci:v000010DEd00001CB3sv000010DEsd000011BEbc03sc00i00
-     vendor   : NVIDIA Corporation
-     model    : GP107GL [Quadro P400]
-     driver   : nvidia-driver-450-server - distro non-free
-     driver   : nvidia-driver-418-server - distro non-free
-     driver   : nvidia-driver-460 - distro non-free recommended
-     driver   : nvidia-driver-450 - distro non-free
-     driver   : nvidia-driver-390 - distro non-free
-     driver   : xserver-xorg-video-nouveau - distro free builtin
+   WARNING:root:_pkg_get_support nvidia-driver-390: package has invalid Support Legacyheader, cannot determine support level
+   == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
+   modalias : pci:v000010DEd00001CB1sv000010DEsd000011BCbc03sc00i00
+   vendor   : NVIDIA Corporation
+   model    : GP107GL [Quadro P1000]
+   driver   : nvidia-driver-390 - distro non-free
+   driver   : nvidia-driver-460-server - distro non-free
+   driver   : nvidia-driver-465 - distro non-free
+   driver   : nvidia-driver-418-server - distro non-free
+   driver   : nvidia-driver-450-server - distro non-free
+   driver   : nvidia-driver-460 - distro non-free recommended
+   driver   : xserver-xorg-video-nouveau - distro free builtin
+
    $ sudo apt install nvidia-driver-460
    $ shutdown -r now
 ```
