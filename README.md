@@ -106,51 +106,63 @@ But it is a little complicated, the followings might be helpful for you.
 ```
 # 8. Install GDS
 ```
-   $ sudo dpkg -i gpudirect-storage-local-repo-ubuntu2004-0.95.0-cuda11.2_1.0-1_amd64.deb
-   $ sudo apt-key add /var/gpudirect-storage-local-repo-ubuntu2004-0.95.0-cuda11.2/7fa2af80.pub 
    $ sudo apt-get update
    $ sudo apt install nvidia-gds
    $ sudo modprobe nvidia_fs
    $ dpkg -s nvidia-gds
    $ /usr/local/cuda/gds/tools/gdscheck -p
-   GDS release version (beta): 0.95.0.94
-   nvidia_fs version:  2.6 libcufile version: 2.3
-   cuFile CONFIGURATION:
-   NVMe           : Supported
-   NVMeOF         : Unsupported
-   SCSI           : Unsupported
-   SCALEFLUX CSD  : Unsupported
-   NVMesh         : Unsupported
-   LUSTRE         : Unsupported
-   GPFS           : Unsupported
-   NFS            : Unsupported
-   WEKAFS         : Unsupported
-   USERSPACE RDMA : Unsupported
-   --MOFED peer direct  : enabled
-   --rdma library       : Not Loaded (libcufile_rdma.so)
-   --rdma devices       : Not configured
-   --rdma_device_status : Up: 0 Down: 0
-   properties.use_compat_mode : 1
-   properties.use_poll_mode : 0
-   properties.poll_mode_max_size_kb : 4
-   properties.max_batch_io_timeout_msecs : 5
-   properties.max_direct_io_size_kb : 16384
-   properties.max_device_cache_size_kb : 131072
-   properties.max_device_pinned_mem_size_kb : 33554432
-   properties.posix_pool_slab_size_kb : 4 1024 16384 
-   properties.posix_pool_slab_count : 128 64 32 
-   properties.rdma_peer_affinity_policy : RoundRobin
-   properties.rdma_dynamic_routing : 0
-   fs.generic.posix_unaligned_writes : 0
-   fs.lustre.posix_gds_min_kb: 0
-   fs.weka.rdma_write_support: 0
-   profile.nvtx : 0
-   profile.cufile_stats : 0
-   miscellaneous.api_check_aggressive : 0
-   GPU INFO:
-   GPU index 0 Quadro P1000 bar:1 bar size (MiB):256 supports GDS
-   IOMMU : disabled
-   Platform verification succeeded
+    GDS release version: 1.0.0.82
+    nvidia_fs version:  2.7 libcufile version: 2.4
+    ============
+    ENVIRONMENT:
+    ============
+    =====================
+    DRIVER CONFIGURATION:
+    =====================
+    NVMe               : Supported
+    NVMeOF             : Unsupported
+    SCSI               : Unsupported
+    ScaleFlux CSD      : Unsupported
+    NVMesh             : Unsupported
+    DDN EXAScaler      : Unsupported
+    IBM Spectrum Scale : Unsupported
+    NFS                : Unsupported
+    WekaFS             : Unsupported
+    Userspace RDMA     : Unsupported
+    --Mellanox PeerDirect : Enabled
+    --rdma library        : Not Loaded (libcufile_rdma.so)
+    --rdma devices        : Not configured
+    --rdma_device_status  : Up: 0 Down: 0
+    =====================
+    CUFILE CONFIGURATION:
+    =====================
+    properties.use_compat_mode : true
+    properties.gds_rdma_write_support : true
+    properties.use_poll_mode : false
+    properties.poll_mode_max_size_kb : 4
+    properties.max_batch_io_timeout_msecs : 5
+    properties.max_direct_io_size_kb : 16384
+    properties.max_device_cache_size_kb : 131072
+    properties.max_device_pinned_mem_size_kb : 33554432
+    properties.posix_pool_slab_size_kb : 4 1024 16384 
+    properties.posix_pool_slab_count : 128 64 32 
+    properties.rdma_peer_affinity_policy : RoundRobin
+    properties.rdma_dynamic_routing : 0
+    fs.generic.posix_unaligned_writes : false
+    fs.lustre.posix_gds_min_kb: 0
+    fs.weka.rdma_write_support: false
+    profile.nvtx : false
+    profile.cufile_stats : 0
+    miscellaneous.api_check_aggressive : false
+    =========
+    GPU INFO:
+    =========
+    GPU index 0 Quadro P1000 bar:1 bar size (MiB):256 supports GDS
+    ==============
+    PLATFORM INFO:
+    ==============
+    IOMMU: disabled
+    Platform verification succeeded
 
 ```
 # 9. Additional software
