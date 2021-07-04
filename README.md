@@ -15,9 +15,9 @@ But it is a little complicated, the followings might be helpful for you.
        DIMM slot4: Empty
        HDD 500GB  ---> Windows10 pro
        DVD DRIVE  ---> replace to SATA SSD(Ubuntu 20.04)
-   (2) SATA SSD  ... JPY 2,500
-       Transcend SSD 120GB
-       P/N: TS120GSSD220S
+   (2) SATA SSD  ... JPY 2,111
+       HYNDAI SSD 120GB
+       P/N: C2S3T/120G
    (3) DDR4 DIMM 8GB x2 ... JPY 5,555
        Micron Memory DDR4 2666MHz PC4-2400T-UA1-11
    (4) DDR4 DIMM 8GB ... JPY 2,555
@@ -30,7 +30,7 @@ But it is a little complicated, the followings might be helpful for you.
        -Zheino 2nd 9.5mm Note PC drive mounter ... JPY 899
        -GLOTRENDS M.2 Heatsink ... JPY 650
    (7) NVIDIA Quadro P1000 ... JPY 15,800
-   ----- Total JPY 61,089 -----
+   ----- Total JPY 60,700 -----
 ```
 # 1. Install Ubuntu 
 ```
