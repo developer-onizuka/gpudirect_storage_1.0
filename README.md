@@ -196,16 +196,16 @@ IoType: WRITE XferType: GPUD Threads: 1 DataSetSize: 10485760/10485760(KiB) IOSi
 
 4. Seq Read Throughput
 (1) Storage->CPU
-$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 0 -T 10 -i 8192K
-IoType: READ XferType: CPUONLY Threads: 1 DataSetSize: 20971520/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.849013 GiB/sec, Avg_Latency: 4223.095312 usecs ops: 2560 total_time 10.816580 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 0 -T 10 -i 256K
+IoType: READ XferType: CPUONLY Threads: 1 DataSetSize: 18165760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.834943 GiB/sec, Avg_Latency: 133.045984 usecs ops: 70960 total_time 9.441286 secs
 
 (2) Storage->CPU->GPU
-$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 0 -T 10 -i 8192K
-IoType: READ XferType: CPU_GPU Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.498969 GiB/sec, Avg_Latency: 5209.203509 usecs ops: 2280 total_time 11.883168 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 0 -T 10 -i 256K
+IoType: READ XferType: CPU_GPU Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.495762 GiB/sec, Avg_Latency: 163.214115 usecs ops: 56960 total_time 9.297100 secs
 
 (3) Storage -> GPU (GDS)
-$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 0 -T 10 -i 8192K
-IoType: READ XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.761112 GiB/sec, Avg_Latency: 4433.709649 usecs ops: 2280 total_time 10.114349 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 0 -T 10 -i 256K
+IoType: READ XferType: GPUD Threads: 1 DataSetSize: 18421760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.833908 GiB/sec, Avg_Latency: 133.120372 usecs ops: 71960 total_time 9.579739 secs
 
 5. Rand Write Throughput
 (1) Storage->CPU
@@ -275,16 +275,16 @@ IoType: WRITE XferType: GPUD Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSi
 
 4. Seq Read Throughput
 (1) Storage->CPU
-$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 0 -T 10 -i 8192K
-IoType: READ XferType: CPUONLY Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.842362 GiB/sec, Avg_Latency: 4238.356140 usecs ops: 2280 total_time 9.668293 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 0 -T 10 -i 256K
+IoType: READ XferType: CPUONLY Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.836170 GiB/sec, Avg_Latency: 132.956305 usecs ops: 72960 total_time 9.700897 secs
 
 (2) Storage->CPU->GPU
-$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 0 -T 10 -i 8192K
-IoType: READ XferType: CPU_GPU Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.531010 GiB/sec, Avg_Latency: 5100.429386 usecs ops: 2280 total_time 11.634480 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 0 -T 10 -i 256K
+IoType: READ XferType: CPU_GPU Threads: 1 DataSetSize: 16373760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.682742 GiB/sec, Avg_Latency: 145.078330 usecs ops: 63960 total_time 9.279634 secs
 
 (3) Storage -> GPU (GDS)
-$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 0 -T 10 -i 8192K
-IoType: READ XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.752732 GiB/sec, Avg_Latency: 4455.252193 usecs ops: 2280 total_time 10.162707 secs
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 0 -T 10 -i 256K
+IoType: READ XferType: GPUD Threads: 1 DataSetSize: 18933760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.839722 GiB/sec, Avg_Latency: 132.699797 usecs ops: 73960 total_time 9.814873 secs
 
 5. Rand Write Throughput
 (1) Storage->CPU
