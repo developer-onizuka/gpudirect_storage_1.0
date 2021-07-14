@@ -26,6 +26,7 @@ But it is a little complicated, the followings might be helpful for you.
    (5) NVMe SSD ... JPY 3,980
        KLEVV SSD 256GB CRAS C710 M.2 Type2280 PCIe3x4 NVMe 3D TLC NAND Flash
        P/N: K256GM2SP0-C71
+       Performance Spec: Read 1950MB/s, Write 1250MB/s
    (6) ETC
        -Zheino 2nd 9.5mm Note PC drive mounter ... JPY 899
        -GLOTRENDS M.2 Heatsink ... JPY 650
@@ -251,3 +252,30 @@ IoType: RANDREAD XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) I
    $ cat test.txt 
    Hello, GDS World!
 ```  
+# 11. Using other NVMe disk
+```
+Using other NVMe disk below:
+   (8) NVMe SSD ... JPY 6,980
+       KLEVV SSD 512GB CRAS C710 M.2 Type2280 PCIe3x4 NVMe 3D TLC NAND Flash
+       p/N: K512GM2SP0-C71
+       Performance Spec: Read 2050MB/s, Write 1650MB/s
+
+3. Seq Write Throughput
+(1) Storage->CPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: CPUONLY Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.508802 GiB/sec, Avg_Latency: 2588.413377 usecs ops: 4560 total_time 11.805725 secs
+    
+(2) Storage->CPU->GPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: CPU_GPU Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.331719 GiB/sec, Avg_Latency: 2932.466011 usecs ops: 3560 total_time 10.442328 secs
+    
+(3) Storage -> GPU (GDS)
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: GPUD Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.436404 GiB/sec, Avg_Latency: 2718.772191 usecs ops: 3560 total_time 9.681297 secs
+
+
+
+
+
+
+```
