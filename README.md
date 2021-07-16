@@ -253,7 +253,7 @@ IoType: RANDREAD XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) I
    Hello, GDS World!
 ```  
 
-Check cufile.log. If you can find the compatible mode, then it does not work as GDS.
+Check cufile.log. If you can find "compatible mode", then it might not work well as GDS.
 A compatibility mode is available for unsupported configurations that maps IO operations to a fallback path.
 You can learn what is compatible mode at the URL below:
 https://docs.nvidia.com/gpudirect-storage/overview-guide/index.html#comp-and-gen
