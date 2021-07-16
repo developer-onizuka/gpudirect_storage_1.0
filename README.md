@@ -167,7 +167,7 @@ But it is a little complicated, the followings might be helpful for you.
 
 ```
 
-# 9. Througput test
+# 9. Throughput test
 ```
 1. C-state Disable
    $ grep cstate /etc/default/grub
@@ -266,7 +266,7 @@ https://docs.nvidia.com/gpudirect-storage/overview-guide/index.html#comp-and-gen
 Using other NVMe disk below:
    (8) NVMe SSD ... JPY 6,980
        KLEVV SSD 512GB CRAS C710 M.2 Type2280 PCIe3x4 NVMe 3D TLC NAND Flash
-       p/N: K512GM2SP0-C71
+       P/N: K512GM2SP0-C71
        Performance Spec: Read 2050MB/s, Write 1650MB/s
 
 3. Seq Write Throughput
