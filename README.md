@@ -330,6 +330,31 @@ Using P400 and other NVMe disk below:
        P/N: K512GM2SP0-C71
        Performance Spec: Read 2050MB/s, Write 1650MB/s
 
+$ nvidia-smi
+Thu Jul 22 09:34:09 2021       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 470.42.01    Driver Version: 470.42.01    CUDA Version: 11.4     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Quadro P400         On   | 00000000:01:00.0  On |                  N/A |
+| 36%   51C    P0    N/A /  N/A |    292MiB /  1992MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      1112      G   /usr/lib/xorg/Xorg                 31MiB |
+|    0   N/A  N/A      1617      G   /usr/lib/xorg/Xorg                 99MiB |
+|    0   N/A  N/A      1748      G   /usr/bin/gnome-shell               81MiB |
+|    0   N/A  N/A      2170      G   ...AAAAAAAAA= --shared-files       71MiB |
++-----------------------------------------------------------------------------+
+
 3. Seq Write Throughput
 (1) Storage->CPU
 $ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 1 -T 10 -i 4096K
