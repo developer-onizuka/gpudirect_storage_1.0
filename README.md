@@ -321,3 +321,64 @@ IoType: RANDREAD XferType: CPU_GPU Threads: 1 DataSetSize: 18677760/10485760(KiB
 $ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 2 -T 10 -i 8192K
 IoType: RANDREAD XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.532309 GiB/sec, Avg_Latency: 5096.328947 usecs ops: 2280 total_time 11.624610 secs
 ```
+
+# 12. Using Quadro P400 (Updated 2021/07/22)
+```
+Using P400 and other NVMe disk below:
+   (8) NVMe SSD ... JPY 6,980
+       KLEVV SSD 512GB CRAS C710 M.2 Type2280 PCIe3x4 NVMe 3D TLC NAND Flash
+       P/N: K512GM2SP0-C71
+       Performance Spec: Read 2050MB/s, Write 1650MB/s
+
+3. Seq Write Throughput
+(1) Storage->CPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: CPUONLY Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.470923 GiB/sec, Avg_Latency: 2654.508989 usecs ops: 3560 total_time 9.454097 secs
+  
+(2) Storage->CPU->GPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: CPU_GPU Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.303067 GiB/sec, Avg_Latency: 2996.938202 usecs ops: 3560 total_time 10.671936 secs
+    
+(3) Storage -> GPU (GDS)
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 1 -T 10 -i 4096K
+IoType: WRITE XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.440689 GiB/sec, Avg_Latency: 2710.856798 usecs ops: 4560 total_time 12.363874 secs
+
+4. Seq Read Throughput
+(1) Storage->CPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 0 -T 10 -i 256K
+IoType: READ XferType: CPUONLY Threads: 1 DataSetSize: 18165760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.920392 GiB/sec, Avg_Latency: 127.125028 usecs ops: 70960 total_time 9.021191 secs
+
+(2) Storage->CPU->GPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 0 -T 10 -i 256K
+IoType: READ XferType: CPU_GPU Threads: 1 DataSetSize: 16629760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.644660 GiB/sec, Avg_Latency: 148.437869 usecs ops: 64960 total_time 9.642948 secs
+
+(3) Storage -> GPU (GDS)
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 0 -T 10 -i 256K
+IoType: READ XferType: GPUD Threads: 1 DataSetSize: 18421760/10485760(KiB) IOSize: 256(KiB) Throughput: 1.919940 GiB/sec, Avg_Latency: 127.156003 usecs ops: 71960 total_time 9.150475 secs
+
+5. Rand Write Throughput
+(1) Storage->CPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 3 -T 10 -i 4096K
+IoType: RANDWRITE XferType: CPUONLY Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.366004 GiB/sec, Avg_Latency: 2858.917697 usecs ops: 3560 total_time 10.180242 secs
+
+(2) Storage->CPU->GPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 3 -T 10 -i 4096K
+IoType: RANDWRITE XferType: CPU_GPU Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.198304 GiB/sec, Avg_Latency: 3258.894101 usecs ops: 3560 total_time 11.604944 secs
+
+(3) Storage -> GPU (GDS)
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 3 -T 10 -i 4096K
+IoType: RANDWRITE XferType: GPUD Threads: 1 DataSetSize: 14581760/10485760(KiB) IOSize: 4096(KiB) Throughput: 1.302090 GiB/sec, Avg_Latency: 2999.182865 usecs ops: 3560 total_time 10.679949 secs
+
+6. Rand Read Throughput
+(1) Storage->CPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 1 -I 2 -T 10 -i 8192K
+IoType: RANDREAD XferType: CPUONLY Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.577479 GiB/sec, Avg_Latency: 4950.283772 usecs ops: 2280 total_time 11.291752 secs
+
+(2) Storage->CPU->GPU
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 2 -I 2 -T 10 -i 8192K
+IoType: RANDREAD XferType: CPU_GPU Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.337016 GiB/sec, Avg_Latency: 5840.784649 usecs ops: 2280 total_time 13.322582 secs
+
+(3) Storage -> GPU (GDS)
+$ gdsio -f /mnt/test10G -d 0 -n 0 -w 1 -s 10G -x 0 -I 2 -T 10 -i 8192K
+IoType: RANDREAD XferType: GPUD Threads: 1 DataSetSize: 18677760/10485760(KiB) IOSize: 8192(KiB) Throughput: 1.538554 GiB/sec, Avg_Latency: 5075.678070 usecs ops: 2280 total_time 11.577428 secs
+```
