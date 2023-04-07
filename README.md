@@ -11,45 +11,21 @@ https://github.com/developer-onizuka/what_is_GPUDirect-Storage
 
 # 0. Hardware
 ```
-   (1) Optiplex 5050SFF  ... JPY 29,150
-       Intel(R) Core(TM) i3-7500 CPU @ 3.50GHz
-       DIMM slot1: DDR4 DIMM 8GB (Micron)
-       DIMM slot2: Empty
-       DIMM slot3: Empty
-       DIMM slot4: Empty
-       HDD 500GB  ---> Windows10 pro
-       DVD DRIVE  ---> replace to SATA SSD(Ubuntu 20.04)
-   (2) SATA SSD  ... JPY 2,111
-       HYUNDAI SSD 120GB
-       P/N: C2S3T/120G
-   (3) DDR4 DIMM 8GB x2 ... JPY 5,555
-       Micron Memory DDR4 2666MHz PC4-2400T-UA1-11
-   (4) DDR4 DIMM 8GB ... JPY 2,555
-       Hynix Memory DDR4 2400MHz PC4-19200
-       HMA81GU6AFR8N-UH
-   (5) NVMe SSD ... JPY 3,980
+   (1) Optiplex 3050SFF
+       Intel(R) Core(TM) i3-7100 CPU @ 3.90GHz
+       DIMM slot1: DDR4 DIMM 4GB (Hynix)
+       DIMM slot2: DDR4 DIMM 4GB (Patriot)
+   (2) SATA SSD (for Ubuntu 20.04)
+       Transcend SSD 120GB
+       P/N: TS120GSSD220S
+   (3) NVMe SSD
        KLEVV SSD 256GB CRAS C710 M.2 Type2280 PCIe3x4 NVMe 3D TLC NAND Flash
        P/N: K256GM2SP0-C71
-       Performance Spec: Read 1950MB/s, Write 1250MB/s
-   (6) ETC
-       -Zheino 2nd 9.5mm Note PC drive mounter ... JPY 899
-       -GLOTRENDS M.2 Heatsink ... JPY 650
-   (7) NVIDIA Quadro P1000 ... JPY 15,800
-   ----- Total JPY 60,700 -----
+   (4) NVIDIA Quadro P1000 (GP107GL)
 ```
 # 1. Install Ubuntu 
 ```
-   Install Ubuntu 20.04 as "Minimal Install" and don't select "install third-party software for graphics and Wi-Fi hardware and additional media formats".
-   Followings are optional, but it is very convenient.
-   $ sudo vi /etc/apt/apt.conf.d/20auto-upgrades
-     APT::Periodic::Update-Package-Lists "0";
-     APT::Periodic::Unattended-Upgrade "0";
-   $ sudo visudo
-     username ALL=NOPASSWD: ALL
-
-   See also followings:
-   https://qiita.com/RyodoTanaka/items/e9b15d579d17651650b7
-   https://thr3a.hatenablog.com/entry/20170805/1501943406
+   Install Ubuntu 20.04.
 ```
 # 2. Check if the kernel version
 ```
@@ -63,7 +39,6 @@ https://github.com/developer-onizuka/what_is_GPUDirect-Storage
    GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=off"
    $ sudo update-grub
    $ sudo reboot
-
 ```   
 # 4. Install MOFED5.3
 ```
